@@ -17,7 +17,21 @@ func newDeck() deck {
 	cards := deck{}
 
 	cardSuits := []string{"Spades", "Diamonds", "Hearts", "Clubs"}
-	cardValues := []string{"Ace", "Two", "Three", "Four"}
+	cardValues := []string{
+		"Ace",
+		"Two",
+		"Three",
+		"Four",
+		"Five",
+		"Six",
+		"Seven",
+		"Eight",
+		"Nine",
+		"Ten",
+		"Jack",
+		"Queen",
+		"King",
+	}
 
 	for _, suit := range cardSuits {
 		for _, value := range cardValues {
@@ -60,12 +74,7 @@ func newDeckFromFile(filename string) deck {
 }
 
 func (d deck) shuffle() {
-	source := rand.NewSource(time.Now().UnixNano())
-	r := rand.New(source)
+	rand.Seed(time.Now().UnixNano())
 
-	for i := range d {
-		newPosition := r.Intn(len(d) - 1)
-
-		d[i], d[newPosition] = d[newPosition], d[i]
-	}
+	rand.Shuffle(len(d), func(i, j int) { d[i], d[j] = d[j], d[i] })
 }
