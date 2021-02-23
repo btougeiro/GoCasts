@@ -23,14 +23,18 @@ func main() {
 		},
 	}
 
-	jim.updateName("jimmy")
+	jim.updateName("Jimmy")
 	jim.print()
 }
 
-func (pointerToPerson *person) updateName(newFirstName string) {
-	(*pointerToPerson).firstName = newFirstName
+// pointer reminder
+// turn adress into value with *address
+// turn value into address with &value
+
+func (p *person) updateName(firstName string) {
+	p.firstName = firstName
 }
 
 func (p person) print() {
-	fmt.Printf("%+v", p)
+	fmt.Println(p)
 }
