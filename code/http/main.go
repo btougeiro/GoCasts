@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"io"
+	"log"
 	"net/http"
-	"os"
 )
 
 type logWriter struct{}
@@ -12,17 +12,18 @@ type logWriter struct{}
 func main() {
 	resp, err := http.Get("http://google.com")
 	if err != nil {
-		fmt.Println("Error:", err)
-		os.Exit(1)
+		log.Fatal(err)
 	}
 
 	lw := logWriter{}
 
+	// os.Stdout implements the writer interface
+	// resp.Body implements the reader interface
 	io.Copy(lw, resp.Body)
 }
 
 func (logWriter) Write(bs []byte) (int, error) {
 	fmt.Println(string(bs))
-	fmt.Println("Just wrote this many bytes:", len(bs))
+	fmt.Printf("Just wrote this many bytes: %d\n", len(bs))
 	return len(bs), nil
 }
