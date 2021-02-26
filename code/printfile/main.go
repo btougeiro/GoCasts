@@ -1,17 +1,16 @@
 package main
 
 import (
-	"fmt"
 	"io"
+	"log"
 	"os"
 )
 
 func main() {
-	f, err := os.Open(os.Args[1])
+	file, err := os.Open(os.Args[1])
 	if err != nil {
-		fmt.Println("Error:", err)
-		os.Exit(1)
+		log.Fatal(err)
 	}
 
-	io.Copy(os.Stdout, f)
+	io.Copy(os.Stdout, file)
 }
